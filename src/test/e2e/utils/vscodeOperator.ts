@@ -4,13 +4,18 @@ import { Page } from '@playwright/test';
 import { Timeout, VSCode } from '../utils/constants';
 
 export default class VscodeOperator {
+    private static instance: VscodeOperator = null;
 
     private VscodeOperator(workbox: Page) {
         this.workbox = workbox;
 
     }
     static getInstance(workbox: Page) {
-        return new VscodeOperator();
+        if (!instance) {
+            instance = new VscodeOperator(workbox);
+            return workbox;
+        }
+        return new VscodeOperator(workbox);
     }
     static async execCommandInCommandPalette(page: Page, command: string) {
         await page.keyboard.press(VSCode.CMD_PALETTE_KEY);
