@@ -3,36 +3,37 @@
 
 import { expect, test } from '../baseTest';
 import { APICenter, Timeout, VSCode } from '../utils/constants';
-import VscodeOperator from '../utils/vscodeOperator';
 
-test('trigger generateAPIviaCICD with Azure DevOps', async ({ workbox }) => {
+test('trigger generateAPIviaCICD with Azure DevOps', async ({ workbox, createVScOperator }) => {
+    const op = await createVScOperator();
     await workbox.waitForTimeout(Timeout.PREPARE_TEST);
     // wait API Center extension installed on VS Code.
-    expect(await VscodeOperator.isSideTabItemExist(workbox, VSCode.TAB_API_CENTER)).toBeTruthy();
-    await VscodeOperator.activeSideTab(workbox, VSCode.TAB_API_CENTER);
+    expect(await op.isSideTabItemExist(VSCode.TAB_API_CENTER)).toBeTruthy();
+    await op.activeSideTab(VSCode.TAB_API_CENTER);
     // trigger command palette.
-    await VscodeOperator.execCommandInCommandPalette(workbox, APICenter.REGISTER_API);
+    await op.execCommandInCommandPalette(APICenter.REGISTER_API);
     // select the first option.
-    await VscodeOperator.selectOptionByName(workbox, APICenter.CI_CD);
+    await op.selectOptionByName(APICenter.CI_CD);
     // select the next option.
-    await VscodeOperator.selectOptionByName(workbox, APICenter.AZURE_DEVOPS);
-    await VscodeOperator.activeSideTab(workbox, VSCode.TAB_EXPLORER);
+    await op.selectOptionByName(APICenter.AZURE_DEVOPS);
+    await op.activeSideTab(VSCode.TAB_EXPLORER);
     // check result.
-    expect(await VscodeOperator.isSideTabItemExist(workbox, APICenter.REGISTER_API_YML)).toBeTruthy();
+    expect(await op.isSideTabItemExist(APICenter.REGISTER_API_YML)).toBeTruthy();
 });
 
-test('trigger generateAPIviaCICD with GitHub', async ({ workbox }) => {
+test('trigger generateAPIviaCICD with GitHub', async ({ workbox, createVScOperator }) => {
+    const op = await createVScOperator();
     await workbox.waitForTimeout(Timeout.PREPARE_TEST);
     // wait API Center extension installed on VS Code.
-    expect(await VscodeOperator.isSideTabItemExist(workbox, VSCode.TAB_API_CENTER)).toBeTruthy();
-    await VscodeOperator.activeSideTab(workbox, VSCode.TAB_API_CENTER);
+    expect(await op.isSideTabItemExist(VSCode.TAB_API_CENTER)).toBeTruthy();
+    await op.activeSideTab(VSCode.TAB_API_CENTER);
     // trigger command palette.
-    await VscodeOperator.execCommandInCommandPalette(workbox, APICenter.REGISTER_API);
+    await op.execCommandInCommandPalette(APICenter.REGISTER_API);
     // select the first option.
-    await VscodeOperator.selectOptionByName(workbox, APICenter.CI_CD);
+    await op.selectOptionByName(APICenter.CI_CD);
     // select the next option.
-    await VscodeOperator.selectOptionByName(workbox, APICenter.GITHUB);
-    await VscodeOperator.activeSideTab(workbox, VSCode.TAB_EXPLORER);
+    await op.selectOptionByName(APICenter.GITHUB);
+    await op.activeSideTab(VSCode.TAB_EXPLORER);
     // check result.
-    expect(await VscodeOperator.isSideTabItemExist(workbox, APICenter.REGISTER_API_YML)).toBeTruthy();
+    expect(await op.isSideTabItemExist(APICenter.REGISTER_API_YML)).toBeTruthy();
 });

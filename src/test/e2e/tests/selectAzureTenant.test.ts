@@ -3,23 +3,23 @@
 
 import { expect, test } from '../baseTest';
 import { APICenter, TestENV, Timeout, VSCode } from '../utils/constants';
-import VscodeOperator from '../utils/vscodeOperator';
 
-test('select Tenant', async ({ workbox }) => {
+test('select Tenant', async ({ workbox, createVScOperator }) => {
+    const op = await createVScOperator();
     await workbox.waitForTimeout(Timeout.PREPARE_TEST);
     // wait API Center extension installed on VS Code.
-    expect(await VscodeOperator.isSideTabItemExist(workbox, VSCode.TAB_API_CENTER)).toBeTruthy();
-    await VscodeOperator.activeSideTab(workbox, VSCode.TAB_API_CENTER, Timeout.PREPARE_EXT);
+    expect(await op.isSideTabItemExist(VSCode.TAB_API_CENTER)).toBeTruthy();
+    await op.activeSideTab(VSCode.TAB_API_CENTER, Timeout.PREPARE_EXT);
     // select tenant
-    expect(await VscodeOperator.isTreeItemExist(workbox, APICenter.SELECT_TENANT)).toBeTruthy();
-    await VscodeOperator.clickTreeItem(workbox, APICenter.SELECT_TENANT);
-    await VscodeOperator.selectOptionByName(workbox, TestENV.AZURE_TENANT_NAME!);
+    expect(await op.isTreeItemExist(APICenter.SELECT_TENANT)).toBeTruthy();
+    await op.clickTreeItem(APICenter.SELECT_TENANT);
+    await op.selectOptionByName(TestENV.AZURE_TENANT_NAME!);
     // check subscription
-    const isSelectSubsExist = await VscodeOperator.isTreeItemExist(workbox, APICenter.SELECT_SUBS);
+    const isSelectSubsExist = await op.isTreeItemExist(APICenter.SELECT_SUBS);
     if (isSelectSubsExist) {
         // select subscription check all
-        await VscodeOperator.clickTreeItem(workbox, APICenter.SELECT_SUBS);
-        await VscodeOperator.checkallCheckbox(workbox);
+        await op.clickTreeItem(APICenter.SELECT_SUBS);
+        await op.checkallCheckbox();
     }
-    expect(await VscodeOperator.isTreeItemExist(workbox, TestENV.AZURE_SUBSCRIPTION_NAME!)).toBeTruthy();
+    expect(await op.isTreeItemExist(TestENV.AZURE_SUBSCRIPTION_NAME!)).toBeTruthy();
 });

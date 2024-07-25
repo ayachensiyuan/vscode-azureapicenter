@@ -18,7 +18,7 @@ type TestFixtures = TestOptions & {
     workbox: Page,
     createProject: () => Promise<string>,
     createTempDir: () => Promise<string>,
-    createVscodeOperater: () => Promise<VscodeOperator>,
+    createVScOperator: () => Promise<VscodeOperator>
 };
 
 
@@ -87,9 +87,11 @@ export const test = base.extend<TestFixtures>({
             await fs.rm(tempDir, { recursive: true });
         }
     },
-    createVscodeOperater: async ({ workbox }, use) => {
-        new VscodeOperator(workbox);
-    },
+    createVScOperator: async ({ workbox }, use) => {
+        await use(async () => {
+            return VscodeOperator.getInstance(workbox);
+        });
+    }
 });
 
 async function insertToDB(path) {

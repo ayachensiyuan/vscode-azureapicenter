@@ -4,69 +4,71 @@ import { Page } from '@playwright/test';
 import { Timeout, VSCode } from '../utils/constants';
 
 export default class VscodeOperator {
-    private static instance: VscodeOperator = null;
+    private static instance: VscodeOperator | null = null;
+    private workbox: Page;
 
-    private VscodeOperator(workbox: Page) {
+    private constructor(workbox: Page) {
         this.workbox = workbox;
-
     }
-    static getInstance(workbox: Page) {
-        if (!instance) {
-            instance = new VscodeOperator(workbox);
-            return workbox;
+
+    static getInstance(workbox: Page): VscodeOperator {
+        if (!VscodeOperator.instance) {
+            VscodeOperator.instance = new VscodeOperator(workbox);
+            return VscodeOperator.instance;
         }
-        return new VscodeOperator(workbox);
+        return VscodeOperator.instance;
     }
-    static async execCommandInCommandPalette(page: Page, command: string) {
-        await page.keyboard.press(VSCode.CMD_PALETTE_KEY);
-        await page.waitForTimeout(Timeout.CLICK_WAIT);
-        const cmdPalette = await VscodeOperator.getCMDPalette(page);
+
+    async execCommandInCommandPalette(command: string) {
+        await this.workbox.keyboard.press(VSCode.CMD_PALETTE_KEY);
+        await this.workbox.waitForTimeout(Timeout.CLICK_WAIT);
+        const cmdPalette = await this.getCMDPalette();
         await cmdPalette.fill(command);
-        await page.waitForTimeout(Timeout.CLICK_WAIT);
-        await page.getByRole(VSCode.CMD_PALETTE_LIST).first().press(VSCode.ENTER);
-        await page.waitForTimeout(Timeout.CLICK_WAIT);
+        await this.workbox.waitForTimeout(Timeout.CLICK_WAIT);
+        await this.workbox.getByRole(VSCode.CMD_PALETTE_LIST).first().press(VSCode.ENTER);
+        await this.workbox.waitForTimeout(Timeout.CLICK_WAIT);
     }
 
-    static async getCMDPalette(page: Page) {
-        return page.getByRole(VSCode.CMD_PALETTE, { name: VSCode.INPUT });
+    async getCMDPalette() {
+        return this.workbox.getByRole(VSCode.CMD_PALETTE, { name: VSCode.INPUT });
     }
 
-    static async selectOptionByName(page: Page, option: string) {
-        await page.getByRole(VSCode.CMD_PALETTE_OPTION, { name: option }).locator(VSCode.LINK).click();
-        await page.waitForTimeout(Timeout.CLICK_WAIT);
+    async selectOptionByName(option: string) {
+        await this.workbox.getByRole(VSCode.CMD_PALETTE_OPTION, { name: option }).locator(VSCode.LINK).click();
+        await this.workbox.waitForTimeout(Timeout.CLICK_WAIT);
     }
 
-    static async selectOptionByIndex(page: Page, index: number) {
-        await page.getByRole(VSCode.CMD_PALETTE_OPTION).nth(index).locator(VSCode.LINK).click();
-        await page.waitForTimeout(Timeout.CLICK_WAIT);
+    async selectOptionByIndex(index: number) {
+        await this.workbox.getByRole(VSCode.CMD_PALETTE_OPTION).nth(index).locator(VSCode.LINK).click();
+        await this.workbox.waitForTimeout(Timeout.CLICK_WAIT);
     }
 
-    static async activeSideTab(page: Page, tabName: string, timeout = Timeout.CLICK_WAIT) {
-        await page.getByRole(VSCode.SIDE_TAB, { name: tabName }).locator(VSCode.LINK).click();
-        await page.waitForTimeout(timeout);
+    async activeSideTab(tabName: string, timeout = Timeout.CLICK_WAIT) {
+        await this.workbox.getByRole(VSCode.SIDE_TAB, { name: tabName }).locator(VSCode.LINK).click();
+        await this.workbox.waitForTimeout(timeout);
     }
 
-    static async isSideTabItemExist(page: Page, tabName: string) {
-        return await page.getByRole(VSCode.SIDE_TAB, { name: tabName }).isVisible();
+    async isSideTabItemExist(tabName: string) {
+        return await this.workbox.getByRole(VSCode.SIDE_TAB, { name: tabName }).isVisible();
     }
 
-    static async isTreeItemExist(page: Page, treeItemName: string) {
-        return await page.getByRole(VSCode.TREE_ITEM, { name: treeItemName }).isVisible();
+    async isTreeItemExist(treeItemName: string) {
+        return await this.workbox.getByRole(VSCode.TREE_ITEM, { name: treeItemName }).isVisible();
     }
 
-    static async clickTreeItem(page: Page, treeItemName: string) {
-        await page.getByRole(VSCode.TREE_ITEM, { name: treeItemName }).locator(VSCode.LINK).click();
-        await page.waitForTimeout(Timeout.CLICK_WAIT);
+    async clickTreeItem(treeItemName: string) {
+        await this.workbox.getByRole(VSCode.TREE_ITEM, { name: treeItemName }).locator(VSCode.LINK).click();
+        await this.workbox.waitForTimeout(Timeout.CLICK_WAIT);
     }
 
-    static async getCheckallCheckbox(page: Page) {
-        return await page.waitForSelector('input.quick-input-check-all[type="checkbox"]', { timeout: Timeout.SHORT_WAIT });
+    async getCheckallCheckbox() {
+        return await this.workbox.waitForSelector('input.quick-input-check-all[type="checkbox"]', { timeout: Timeout.SHORT_WAIT });
     }
 
-    static async checkallCheckbox(page: Page) {
-        await (await VscodeOperator.getCheckallCheckbox(page)).check();
-        await page.waitForTimeout(Timeout.CLICK_WAIT);
-        await (await VscodeOperator.getCMDPalette(page)).press(VSCode.ENTER);
-        await page.waitForTimeout(Timeout.CLICK_WAIT);
+    async checkallCheckbox() {
+        await (await this.getCheckallCheckbox()).check();
+        await this.workbox.waitForTimeout(Timeout.CLICK_WAIT);
+        await (await this.getCMDPalette()).press(VSCode.ENTER);
+        await this.workbox.waitForTimeout(Timeout.CLICK_WAIT);
     }
 }
