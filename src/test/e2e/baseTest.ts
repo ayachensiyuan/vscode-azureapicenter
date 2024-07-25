@@ -7,6 +7,7 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import { Database } from 'sqlite3';
+import VscodeOperator from './utils/vscodeOperator';
 export { expect } from '@playwright/test';
 
 export type TestOptions = {
@@ -17,6 +18,7 @@ type TestFixtures = TestOptions & {
     workbox: Page,
     createProject: () => Promise<string>,
     createTempDir: () => Promise<string>,
+    createVscodeOperater: () => Promise<VscodeOperator>,
 };
 
 
@@ -84,7 +86,10 @@ export const test = base.extend<TestFixtures>({
         for (const tempDir of tempDirs) {
             await fs.rm(tempDir, { recursive: true });
         }
-    }
+    },
+    createVscodeOperater: async ({ workbox }, use) => {
+        new VscodeOperator(workbox);
+    },
 });
 
 async function insertToDB(path) {
