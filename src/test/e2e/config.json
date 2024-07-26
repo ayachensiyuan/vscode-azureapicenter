@@ -1,0 +1,30 @@
+[
+    {
+        "key": "secret:\/\/{\"extensionId\":\"vscode.microsoft-authentication\",\"key\":\"72f988bf-86f1-41af-91ab-2d7cd011db47\/c35fa297-dc10-4993-a18c-e8709b8410d1\/814384af-8c15-4360-a28f-036cf769bae3\"}",
+        "value": "{\"id\":\"72f988bf-86f1-41af-91ab-2d7cd011db47/c35fa297-dc10-4993-a18c-e8709b8410d1/814384af-8c15-4360-a28f-036cf769bae3\",\"refreshToken\":\"0.ARoAv4j5cvGGr0GRqy180BHbR0NkvK5tmcJFkPA4j_lvqlYaAD8.AgABAwEAAAApTwJmzXqdR4BN2miheQMYAgDs_wUA9P-1viDvwk4lO-dVKu-8Puy3Dd_iRgV_nNMRE_FNmIt9TGwFPwxDQKncqG8eUGQEGDUvsb7StiFEWyPHdUQNRQMZaj388FR5mC0Isqeh3fUpnxuVeXcZgaj6kboLFQ70Sj7-Z_uWOGeteum4CFv1Q4lrGdseB6MHT6_T29krmzsJq_Srv99Y07gQhsiXgVbBg7rtm0TFiU5VVAyfJPS8Nhz26uhkaVq1KVd3tNAUI-ctL6pG8_i2NzGCRTswXS3K7eQTWBdwoAqYLixW-9zl68MFwU_0crLsnSKm60e1qUlJA9_GDzDJA1u0KjjprEI4v69_437kKWmTumIeieGADe3kJb5-o_ElLWbauL1dXDqeB2h-A6PMnumhnqRnfSp1pO2u2ULXGoTTMuexHs3Wrv7Fqz6FOwSkDB6IYrkjsat7-g7x0lJLSxUJW1h8LQdKnWWlOJCewVfKZLs7uEfVMptsRTmLD8MD8lz-f7y8md_NrB2K0Wjo3n3L-bkNYiUGRxpEttXWjwdHj6r7RAzH1X8-DYG38b2Ldtbb0SND64rfK2U8uJ0GK5Tiig4XqPSE3JIGfvyB_5YJUowG8-vkXZXOz3ql2jEzU-kkIQIfLM76bx_X9L9glE6qK8bOUTWWyqrbkW_490HtrwF1SOI183-V22Y9HBK_Hi8Yo9GsO_CLLVEOQO3lw8nf_SdguUPyVdR5_pWxuJsa_z-poNeNJFTldXkTYUFUotaU_JMuxvqoNRaUhpSuVGZBPH_tiwKbZs8nS7BoFXR01jPPG2FUIR1CHiK9T1tODr4dPSVWMuK40gJzcvr1M3_uBJEXi0h2kOd--KOZL1jT27TCrk9T0t_R05s\",\"scope\":\"VSCODE_TENANT:organizations email https:\/\/management.azure.com\/.default offline_access openid profile\",\"account\":{\"label\":\"fxtest02@microsoft.com\",\"id\":\"72f988bf-86f1-41af-91ab-2d7cd011db47/c35fa297-dc10-4993-a18c-e8709b8410d1\",\"type\":\"aad\"},\"endpoint\":\"https:\/\/login.microsoftonline.com\/\"}"
+    },
+    {
+        "key": "secret:\/\/{\"extensionId\":\"vscode.microsoft-authentication\",\"key\":\"72f988bf-86f1-41af-91ab-2d7cd011db47\/c35fa297-dc10-4993-a18c-e8709b8410d1\/545ce921-30c1-4dbd-93d4-aca8668b4c8d\"}",
+        "value": "{\"id\": \"72f988bf-86f1-41af-91ab-2d7cd011db47\/c35fa297-dc10-4993-a18c-e8709b8410d1\/545ce921-30c1-4dbd-93d4-aca8668b4c8d\",\"refreshToken\": \"0.ARoAv4j5cvGGr0GRqy180BHbR0NkvK5tmcJFkPA4j_lvqlYaAD8.AgABAwEAAAApTwJmzXqdR4BN2miheQMYAgDs_wUA9P_OKo6YFSh9HCbJ-VYOeRmKH5PUN9hOx9m38TwvO5YFqibGU47hmDzd-jFDfAGGg3YiHc7otmzkfZbBIB2t92yL15CARpTUAM13W2cody-6AqrXvEFIGTw93RP_grx4tiNk-0k9gLPslD4EcFFbixhSUTq0FSLIgbt3elkH0JQdEkYKv-aNVItswaevfWpDsjmQYuhENJPsR2LC66-LD9uANp7PTJfPltGHg0gCTtrtLPlgVUUvT2HY8fOp7QGyFBe5NubjQvRGmVB9CcuPrL_R9J705W889pagkaOlkd06zC88pZEGGg-yw84xAfGmzOwfvH2GkuDaMlEGpNX2HptSxmYoXy1__YLYm1WQ0uX74DxHwciaxMLhDLWsIMzO0Kdzrit3wfs7xbDbyoHIUTBE7Y6YIGAYTBLcMVqilLhNz-dRtUBM8Gc7V09AIrZ3zsjHtsWSz-SXQVCC4T0GrSnrZ4Yz1RsynXj0TpnJW_wPCnO1Hk8Nueg7LAiOgbzof61SwR6fufnkADBLIAILiuhAevd3LrplMXioR7eM9j6rxJcoS22P9qk2lITKLP7mBYv4XujPSLDbWhd9tpR8e469Ao52a87j6SOK0MPObYobMyGPPp0PZQdNOJJghIj3Hi_fQCMCnXDdIqCe_22lLjAkDD2zw0IMYv3dSvTfl-mxi8BHyyrTGeYmwnSpCk8shACiVCYCve3V9kvvIV9s_8SHJ3ydsnQtjrchhn2Qa_Dti1_X_FmOXoCwp4vbQRSAltb0DBVzlLEXZVFN9lBMDlmsrEu2oGG-J8DohjYGuMchNkYirGttgSbFH1zp4_HA2XpQjasnQTXIagK_wnZmHiLtxZ4\",\"scope\": \"VSCODE_TENANT: 72f988bf-86f1-41af-91ab-2d7cd011db47 email https:\/\/management.azure.com\/.default offline_access openid profile\",\"account\": {\"label\": \"fxtest02@microsoft.com\",\"id\": \"72f988bf-86f1-41af-91ab-2d7cd011db47/c35fa297-dc10-4993-a18c-e8709b8410d1\",\"type\": \"aad\"},\"endpoint\": \"https://login.microsoftonline.com\/\"}"
+    },
+    {
+        "key": "secret://{\"extensionId\":\"vscode.microsoft-authentication\",\"key\":\"microsoft.login.keylist\"}",
+        "value": "[\"72f988bf-86f1-41af-91ab-2d7cd011db47/c35fa297-dc10-4993-a18c-e8709b8410d1/814384af-8c15-4360-a28f-036cf769bae3\",\"72f988bf-86f1-41af-91ab-2d7cd011db47/c35fa297-dc10-4993-a18c-e8709b8410d1/545ce921-30c1-4dbd-93d4-aca8668b4c8d\"]"
+    },
+    {
+        "key": "microsoft-fxtest02@microsoft.com-usages",
+        "value": "[{\"extensionId\":\"apidev.azure-api-center\",\"extensionName\":\"Azure API Center\",\"lastUsed\":1720833949155}]"
+    },
+    {
+        "key": "apidev.azure-api-center-microsoft-https://management.azure.com/.default VSCODE_TENANT:organizations",
+        "value": "72f988bf-86f1-41af-91ab-2d7cd011db47/c35fa297-dc10-4993-a18c-e8709b8410d1/814384af-8c15-4360-a28f-036cf769bae3"
+    },
+    {
+        "key": "apidev.azure-api-center",
+        "value": "{\"selectedNode\":\"azureapicenterAccountSelectTenant\"}"
+    },
+    {
+        "key": "microsoft-fxtest02@microsoft.com",
+        "value": "[{\"id\":\"apidev.azure-api-center\",\"name\":\"Azure API Center\",\"allowed\":true}]"
+    }
+]
