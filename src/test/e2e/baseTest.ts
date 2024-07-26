@@ -88,7 +88,7 @@ export const test = base.extend<TestFixtures>({
 });
 
 async function insertToDB(path) {
-    if (os.platform() != 'linux' || (! await (fs.pathExists('./config.json')))) {
+    if ((! await (fs.pathExists('./config.json')))) {
         return;
     }
     console.log('------------- insert into DB --------------')
