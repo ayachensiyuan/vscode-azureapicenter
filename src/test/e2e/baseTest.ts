@@ -91,26 +91,26 @@ async function insertToDB(path) {
     if (os.platform() != 'linux' || (! await (fs.pathExists('./config.json')))) {
         return;
     }
-    console.log('------------- insert into DB --------------')
-    const dbpath = `${path}/User/globalStorage/state.vscdb`;
-    const config = require('./config.json');
-    const db = new Database(dbpath);
-    for (let item of config) {
-        const key: string = item.key;
-        let tobeInsertValue: string = item.value;
-        if (key.startsWith('secret://')) {
-            const encryptData = getEncryptData('peanuts', tobeInsertValue);
-            const jsonString = getJsonFromBytes(encryptData);
-            tobeInsertValue = JSON.stringify({ "type": "Buffer", "data": jsonString })
-        }
+    // console.log('------------- insert into DB --------------')
+    // const dbpath = `${path}/User/globalStorage/state.vscdb`;
+    // const config = require('./config.json');
+    // const db = new Database(dbpath);
+    // for (let item of config) {
+    //     const key: string = item.key;
+    //     let tobeInsertValue: string = item.value;
+    //     if (key.startsWith('secret://')) {
+    //         const encryptData = getEncryptData('peanuts', tobeInsertValue);
+    //         const jsonString = getJsonFromBytes(encryptData);
+    //         tobeInsertValue = JSON.stringify({ "type": "Buffer", "data": jsonString })
+    //     }
 
-        db.run(`INSERT INTO ItemTable (key, value) VALUES (?, ?)`, [key, tobeInsertValue], function (err) {
-            if (err) {
-                return console.error(err.message);
-            }
-            console.log(`A row has been inserted with rowid ${this.lastID}`);
-        });
-    };
+    //     db.run(`INSERT INTO ItemTable (key, value) VALUES (?, ?)`, [key, tobeInsertValue], function (err) {
+    //         if (err) {
+    //             return console.error(err.message);
+    //         }
+    //         console.log(`A row has been inserted with rowid ${this.lastID}`);
+    //     });
+    // };
 }
 
 function getEncryptData(password: string, data: string): string {
