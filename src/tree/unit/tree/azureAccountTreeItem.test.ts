@@ -8,7 +8,7 @@ import { AzureAuthenticationSession, AzureSessionProvider, SignInStatus } from "
 import { AzureSubscriptionHelper } from "../../../azure/azureLogin/subscriptions";
 import { TelemetryClient } from "../../../common/telemetryClient";
 import { ext } from "../../../extensionVariables";
-import { AzureAccountTreeItem } from "../../../tree/AzureAccountTreeItem";
+import { AzureAccountTreeItem } from "../../AzureAccountTreeItem";
 
 describe("azureAccountTreeItem test cases", () => {
     let sandbox = null as any;

@@ -6,7 +6,7 @@ import { ApiCenterService } from "../../../azure/ApiCenter/ApiCenterService";
 import { ApiCenterApiVersionDefinition } from "../../../azure/ApiCenter/contracts";
 import { ExportAPI } from "../../../commands/exportApi";
 import { TelemetryClient } from "../../../common/telemetryClient";
-import { ApiVersionDefinitionTreeItem } from "../../../tree/ApiVersionDefinitionTreeItem";
+import { ApiVersionDefinitionTreeItem } from "../../ApiVersionDefinitionTreeItem";
 abstract class ParentTreeItemBase extends AzExtParentTreeItem {
     private _childIndex: number = 0;
     public async loadMoreChildrenImpl(clearCache: boolean, context: IActionContext): Promise<AzExtTreeItem[]> {

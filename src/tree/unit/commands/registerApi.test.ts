@@ -7,7 +7,7 @@ import { registerApi } from "../../../commands/registerApi";
 import * as registerStepByStep from "../../../commands/registerApiSubCommands/registerStepByStep";
 import { RegisterViaCICD } from "../../../commands/registerApiSubCommands/registerViaCICD";
 import { TelemetryClient } from "../../../common/telemetryClient";
-import { ApisTreeItem } from "../../../tree/ApisTreeItem";
+import { ApisTreeItem } from "../../ApisTreeItem";
 
 describe("registerAPI", () => {
     let sandbox = null as any;
