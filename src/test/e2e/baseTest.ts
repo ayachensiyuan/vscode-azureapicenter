@@ -1,6 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
-import { _electron, test as base, type Page } from '@playwright/test';
+import { _electron, test as base, ElectronApplication, type Page } from '@playwright/test';
 import { downloadAndUnzipVSCode, resolveCliArgsFromVSCodeExecutablePath } from '@vscode/test-electron';
 import { AES, algo, enc, PBKDF2 } from 'crypto-js';
 import * as fs from 'fs-extra';
@@ -16,6 +16,7 @@ export type TestOptions = {
 
 type TestFixtures = TestOptions & {
     workbox: Page,
+    electronApp: ElectronApplication,
     createProject: () => Promise<string>,
     createTempDir: () => Promise<string>,
 };
@@ -24,45 +25,52 @@ type TestFixtures = TestOptions & {
 export const test = base.extend<TestFixtures>({
     vscodeVersion: ['insiders', { option: true }],
 
-    workbox: async ({ vscodeVersion, createProject, createTempDir }, use) => {
+    electronApp: async ({ vscodeVersion, createProject, createTempDir }, use) => {
         const defaultCachePath = await createTempDir();
         const vscodePath = await downloadAndUnzipVSCode(vscodeVersion);
         const [cli, ...args] = resolveCliArgsFromVSCodeExecutablePath(vscodePath);
+
         const electronApp = await _electron.launch({
             executablePath: vscodePath,
             env: { ...process.env, NODE_ENV: 'development' },
             args: [
-                // Stolen from https://github.com/microsoft/vscode-test/blob/0ec222ef170e102244569064a12898fb203e5bb7/lib/runTest.ts#L126-L160
-                // https://github.com/microsoft/vscode/issues/84238
                 '--no-sandbox',
-                // https://github.com/microsoft/vscode-test/issues/221
                 '--disable-gpu-sandbox',
-                // https://github.com/microsoft/vscode-test/issues/120
                 '--disable-updates',
                 '--skip-welcome',
                 '--skip-release-notes',
                 '--disable-workspace-trust',
                 '--password-store=basic',
                 ...args,
-                `--extensionDevelopmentPath=${path.join(__dirname, '..', '..', '..', '..')
-                }`,
+                `--extensionDevelopmentPath=${path.join(__dirname, '..', '..', '..', '..')}`,
                 await createProject(),
             ],
         });
-        const workbox = await electronApp.firstWindow();
-        await insertToDB(args[1].split('=')[1]);
-        await setupTenantAndSub(args[1].split('=')[1]);
-        await workbox.context().tracing.start({ screenshots: true, snapshots: true, title: test.info().title });
-        await use(workbox);
-        const tracePath = test.info().outputPath('trace.zip');
-        await workbox.context().tracing.stop({ path: tracePath });
-        test.info().attachments.push({ name: 'trace', path: tracePath, contentType: 'application/zip' });
+
+        await use(electronApp);
+
         await electronApp.close();
+
         const logPath = path.join(defaultCachePath, 'user-data');
         if (await fs.exists(logPath)) {
             const logOutputPath = test.info().outputPath('vscode-logs');
             await fs.copy(logPath, logOutputPath);
         }
+    },
+
+    workbox: async ({ electronApp }, use) => {
+        const workbox = await electronApp.firstWindow();
+
+        const args = electronApp.process().spawnargs;
+        await insertToDB(args[1].split('=')[1]);
+        await setupTenantAndSub(args[1].split('=')[1]);
+
+        await workbox.context().tracing.start({ screenshots: true, snapshots: true, title: test.info().title });
+        await use(workbox);
+
+        const tracePath = test.info().outputPath('trace.zip');
+        await workbox.context().tracing.stop({ path: tracePath });
+        test.info().attachments.push({ name: 'trace', path: tracePath, contentType: 'application/zip' });
     },
     createProject: async ({ createTempDir }, use) => {
         await use(async () => {
